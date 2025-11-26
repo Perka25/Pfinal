@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    
+</head>
+<body>
+
+<div id="contenedor-juego">
+    <h1 id="titulo-juego">Snake</h1>
+    
+    <div id="panel-informacion">
+        <p class="etiqueta-puntaje">Puntaje: <span id="marcador-puntaje" class="valor-puntaje">0</span></p>
+        <div id="mensaje-juego">Presiona una tecla para empezar</div>
+    </div>
+    
+    <div id="controles-adicionales">
+        <button id="boton-perfil" class="boton-icono" title="Ver Perfil">
+            <img src="/recursos/persona.png" alt="Icono de Perfil" class="icono-perfil">
+        </button>
+        <button id="boton-historial" class="boton-icono" title="Ver Historial">
+            <img src="/recursos/trofeo.png" alt="Trofeo de Historial" class="icono-trofeo">
+        </button>
+    </div>
+    
+    <canvas id="lienzoJuego"></canvas>
+
+    <button id="boton-reiniciar" class="oculto">
+        Reiniciar Juego
+    </button>
+    
+</div>
+
+<div id="historial-modal" class="modal-oculto">
+    <div class="modal-contenido">
+        <span class="cerrar-modal">&times;</span>
+        <h2>🏆 Historial de Puntuaciones</h2>
+        <ul id="historial-lista">
+            </ul>
+    </div>
+</div>
+
+<div id="perfil-modal" class="modal-oculto">
+    <div class="modal-contenido" id="perfil-jugador">
+        <span class="cerrar-modal">&times;</span>
+        <h2 class="perfil-titulo">👤 Perfil de Jugador</h2>
+        <p>👤 Usuario: <span id="perfil-usuario-nombre" class="perfil-valor">Cargando...</span></p>
+        <p>📧 Correo: <span id="perfil-usuario-correo" class="perfil-valor">Cargando...</span></p>
+
+        <button id="boton-cerrar-sesion" class="boton-accion">
+            Cerrar Sesión
+        </button>
+    </div>
+</div>
+<script src="/js/auth.js"></script>
+<script src="/js/game.js"></script> 
+
+</body>
+</html>

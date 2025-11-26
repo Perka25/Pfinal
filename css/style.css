@@ -1,0 +1,528 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1a102c;
+    color: #e0b0ff;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+#contenedor-juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; 
+    background-color: #2a1a3c; 
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #4a3a5c;
+    max-width: 450px; 
+    width: 90%;
+}
+
+#titulo-juego {
+    color: #e0b0ff;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+#panel-informacion {
+    background-color: #1a102c;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 28rem; 
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #4a3a5c;
+}
+
+.etiqueta-puntaje {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #f0e0ff;
+    margin: 0;
+}
+
+.valor-puntaje {
+    font-size: 1.5rem;
+    color: #a0f0ff;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+#mensaje-juego {
+    color: #e0b0ff;
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: right;
+    flex-grow: 1;
+    margin-left: 1rem;
+}
+
+.mensaje-rojo {
+    color: #ff5050;
+    font-weight: bold;
+}
+
+/* Contenedor para el botón de historial */
+#controles-adicionales {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 28rem; 
+    margin-top: -1rem; 
+}
+
+/* Estilos para el botón de ÍCONO */
+.boton-icono {
+    padding: 0; 
+    background-color: #4a3a5c; 
+    font-size: 0; 
+    line-height: 1; 
+    font-weight: 700;
+    border-radius: 50%; 
+    width: 2.8rem;
+    height: 2.8rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boton-icono:hover {
+    background-color: #6a00ff; 
+}
+
+
+.icono-trofeo {
+    width: 70%; 
+    height: 70%;
+    object-fit: contain; 
+    filter: brightness(1.2) saturate(1.2); 
+}
+
+
+canvas {
+    border: 2px solid #6a00ff;
+    background-color: #2d1d42;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(106, 0, 255, 0.5);
+}
+
+/* Estilos para el botón de reiniciar y el botón de cerrar sesión */
+#boton-reiniciar,
+#boton-cerrar-sesion { 
+    margin-top: 2rem; 
+    padding: 0.8rem 2rem;
+    background-color: #6a00ff; 
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#boton-reiniciar.oculto {
+    display: none;
+}
+
+#boton-reiniciar:hover,
+#boton-cerrar-sesion:hover {
+    background-color: #7b00ff;
+}
+
+/* 
+   Estilos para el Modal de Historial
+    */
+.modal-oculto {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-oculto.visible {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background-color: #2a1a3c;
+    padding: 20px;
+    border: 1px solid #4a3a5c;
+    width: 80%;
+    max-width: 450px;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    color: #f0e0ff;
+    position: relative;
+    max-height: 80vh; 
+    overflow-y: auto; 
+}
+
+.cerrar-modal {
+    color: #e0b0ff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute; 
+    right: 15px;
+    top: 10px;
+}
+
+.cerrar-modal:hover,
+.cerrar-modal:focus {
+    color: #ff5050;
+    text-decoration: none;
+}
+
+.modal-contenido h2 {
+    color: #a0f0ff;
+    margin-top: 0;
+    border-bottom: 2px solid #4a3a5c;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: center; 
+}
+
+#historial-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#historial-lista li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dotted #4a3a5c;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.4; 
+}
+#historial-lista li:last-of-type { 
+    border-bottom: none;
+    padding-bottom: 0; 
+}
+
+
+.posicion {
+    font-weight: bold;
+    color: #e0b0ff;
+    width: 10%;
+    min-width: 20px; 
+}
+
+.puntaje {
+    font-weight: bold;
+    color: #a0f0ff;
+    width: 25%;
+    min-width: 70px; 
+    text-align: left;
+}
+
+.usuario {
+    font-style: italic;
+    color: #f0e0ff;
+    width: 30%;
+    min-width: 80px; 
+    text-align: left;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.fecha {
+    color: #999;
+    font-size: 0.8rem;
+    width: 35%;
+    min-width: 120px; 
+    text-align: right;
+}
+
+.sin-historial {
+    text-align: center;
+    color: #ccc;
+    font-style: italic;
+    padding: 1rem 0;
+}
+
+/* Clase para ocultar elementos usada por JS */
+.oculto {
+    display: none;
+}
+
+
+/* Contenedor de Historial y Perfil */
+#controles-adicionales {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 1rem; 
+    width: 100%;
+    max-width: 28rem; 
+    margin-top: 1rem; 
+    margin-bottom: 0; 
+}
+
+/* Estilos para el botón de ÍCONO (Historial y Perfil) */
+.boton-icono {
+    padding: 0; 
+    background-color: #4a3a5c; 
+    color: #ffffff; 
+    font-size: 1.8rem;
+    line-height: 1; 
+    font-weight: 700;
+    border-radius: 50%; 
+    width: 2.8rem;
+    height: 2.8rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+.boton-icono:hover {
+    background-color: #6a00ff; 
+}
+
+/* Estilos para la imagen del trofeo dentro del botón */
+.icono-trofeo {
+    width: 70%; 
+    height: 70%;
+    object-fit: contain; 
+    filter: brightness(1.2) saturate(1.2); 
+}
+
+
+
+/* 
+   Estilos del Perfil del Jugador (Dentro del Modal)
+    */
+.perfil-titulo {
+    font-size: 1.5rem; 
+    font-weight: 700;
+    color: #a0f0ff;
+    border-bottom: 1px solid #4a3a5c;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+#perfil-jugador p {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: #c0c0c0;
+    border-bottom: 1px dotted #4a3a5c;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+#perfil-jugador p:last-of-type {
+    border-bottom: none;
+}
+
+.perfil-valor {
+    color: #f0e0ff;
+    font-weight: 600;
+    
+}
+
+/* Ajustes al botón de cerrar sesión que ahora está en el modal de perfil */
+#perfil-modal #boton-cerrar-sesion {
+    margin: 1.5rem auto 0.5rem; 
+    display: block; 
+    width: 100%; 
+    max-width: 200px; 
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+}
+
+/* 
+   Estilos para el Modal (Generales eee Historial)
+    */
+.modal-oculto {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-oculto.visible {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background-color: #2a1a3c;
+    padding: 20px;
+    border: 1px solid #4a3a5c;
+    width: 80%;
+    max-width: 450px;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    color: #f0e0ff;
+    position: relative;
+    max-height: 80vh; 
+    overflow-y: auto; 
+}
+
+.cerrar-modal {
+    color: #e0b0ff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute; 
+    right: 15px;
+    top: 10px;
+}
+
+.cerrar-modal:hover,
+.cerrar-modal:focus {
+    color: #ff5050;
+    text-decoration: none;
+}
+
+.modal-contenido h2 {
+    color: #a0f0ff;
+    margin-top: 0;
+    border-bottom: 2px solid #4a3a5c;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: center; 
+}
+
+
+
+/* Clase para ocultar elementos usada por JS */
+.oculto {
+    display: none;
+}
+
+/* Contenedor de Historial y Perfil */
+#controles-adicionales {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 1rem; 
+    width: 100%;
+    max-width: 28rem; 
+    margin-top: 1rem; 
+    margin-bottom: 0; 
+}
+
+/* Estilos para el botón de ÍCONO (Historial y Perfil) */
+.boton-icono {
+    padding: 0; 
+    background-color: #4a3a5c; 
+    font-size: 0; 
+    line-height: 1; 
+    font-weight: 700;
+    border-radius: 50%; 
+    width: 2.8rem;
+    height: 2.8rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+.boton-icono:hover {
+    background-color: #6a00ff; 
+}
+
+/* Estilos para la imagen del trofeo dentro del botón */
+.icono-trofeo {
+    width: 70%; 
+    height: 70%;
+    object-fit: contain; 
+    filter: brightness(1.2) saturate(1.2); 
+}
+
+/* Estilos para la imagen de perfil dentro del botón */
+.icono-perfil {
+    width: 65%; 
+    height: 65%;
+    object-fit: contain;
+    filter: brightness(1.1); 
+}
+
+
+/* 
+   Estilos del Perfil del Jugador (Dentro del Modal)
+    */
+.perfil-titulo {
+    font-size: 1.5rem; 
+    font-weight: 700;
+    color: #a0f0ff;
+    border-bottom: 1px solid #4a3a5c;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+#perfil-jugador p {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: #c0c0c0;
+    border-bottom: 1px dotted #4a3a5c;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+#perfil-jugador p:last-of-type {
+    border-bottom: none;
+}
+
+.perfil-valor {
+    color: #f0e0ff;
+    font-weight: 600;
+}
+
+
+#perfil-modal #boton-cerrar-sesion {
+    margin: 1.5rem auto 0.5rem; 
+    display: block; 
+    width: 100%; 
+    max-width: 200px; 
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+}
