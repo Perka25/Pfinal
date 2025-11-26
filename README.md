@@ -1,5 +1,6 @@
 # Pfinal
 Descripción del Juego
+
 El juego es una versión del clásico Snake que se ejecuta en un lienzo (<canvas>) con una cuadrícula de 20x20. Está ambientado en un diseño de colores oscuros con toques neón. La aplicación requiere que los usuarios se registren e inicien sesión para poder acceder al juego y guardar sus puntajes.
 
 Mecánica Principal
